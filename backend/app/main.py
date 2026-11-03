@@ -3,10 +3,15 @@
 
 from fastapi import FastAPI
 
+from app.config import get_settings
+
+settings = get_settings()
+
 app = FastAPI(
-    title="IDRICI CRAFT API",
+    title=settings.app_name,
     description="Backend API for the IDRICI CRAFT application.",
-    version="0.1.0",
+    version=settings.app_version,
+    debug=settings.debug,
 )
 
 
@@ -16,7 +21,7 @@ async def root() -> dict[str, str]:
     return {
         "name": "IDRICI CRAFT",
         "status": "online",
-        "version": "0.1.0",
+        "version": settings.app_version,
     }
 
 
