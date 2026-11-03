@@ -1,100 +1,177 @@
-IDRICI CRAFT — Upstream Source Audit
+# IDRICI CRAFT — Upstream Source Audit
 
-1. Purpose
+## 1. Purpose
 
-This document defines the technical audit process for the original Craft Anything repository.
+This document records verified findings from inspecting the original Craft Anything repository.
 
 Upstream repository:
 https://github.com/storytold/craft-anything
 
-2. Audit Objectives
+Audit date: 2026-11-03
 
-- Understand the original system architecture.
-- Identify programming languages and frameworks.
-- Identify frontend and backend components.
-- Review dependencies.
-- Identify reusable modules.
-- Evaluate compatibility with Android and our backend.
-- Identify security risks.
+## 2. Repository Structure
 
-3. Source Code Review
+The upstream repository is organized as a Rust workspace.
 
-The audit must inspect:
+Confirmed components include:
 
-- Repository structure.
-- Main application entry points.
-- Frontend implementation.
-- Backend implementation.
-- API communication.
-- AI integration.
-- Build and deployment configuration.
-- Database and storage components.
+- crates/ — reusable Rust libraries.
+- apps/craft-anything/ — desktop application.
+- apps/craft-anything-cli/ — command-line application.
+- apps/craft-anything-web/ — WebAssembly browser application.
+- xtask/ — development and maintenance tools.
+- docs/ — technical documentation.
+- assets/ — application assets.
 
-4. Technology Identification
+## 3. Confirmed Technologies
 
-Record the actual technologies discovered during inspection.
+The inspected root Cargo.toml confirms:
 
-Do not assume a framework or programming language without verifying the source code.
+- Primary language: Rust.
+- Rust edition: 2024.
+- Workspace resolver: 3.
+- Desktop UI: egui and eframe.
+- Serialization: serde and serde_json.
+- Configuration support: TOML.
+- WebAssembly-related components are present.
+- JavaScript analysis components are implemented in Rust.
 
-5. Reusable Components
+The upstream workspace includes separate crates for:
 
-Each candidate component must be evaluated for:
+- AI.
+- Analysis.
+- Engine.
+- Engines.
+- Evidence.
+- Formats.
+- JavaScript.
+- MCP.
+- Platform.
+- Setup.
+- Testing.
 
-- Technical compatibility.
-- License compatibility.
-- Security.
-- Maintenance requirements.
-- Integration complexity.
+These findings describe the upstream project, not an implemented IDRICI CRAFT system.
 
-6. License Compliance
+## 4. Application Architecture Findings
 
-Before reusing any source code:
+The upstream project provides:
 
-- Identify the repository license.
+- A desktop application.
+- A command-line interface.
+- An MCP server interface.
+- A browser-based WebAssembly application.
+- A Rust-based inspection and analysis engine.
+
+The upstream README describes a workflow involving project inspection, AI-assisted building, checking, and refinement.
+
+The upstream application is not a ready-made Android application.
+
+No independent hosted backend API matching the planned IDRICI CRAFT architecture was confirmed during this initial inspection.
+
+## 5. Android Compatibility
+
+The following decisions are preliminary:
+
+- The upstream desktop UI must not be copied as the Android interface.
+- Android requires an independently designed mobile client.
+- Rust engine components may be evaluated for server-side reuse.
+- Android should communicate with the backend through a documented API.
+- Any native Rust integration requires compatibility and security testing.
+
+## 6. License Findings
+
+The upstream repository declares:
+
+MIT OR Apache-2.0.
+
+The repository contains:
+
+- LICENSE-MIT
+- LICENSE-APACHE
+- NOTICE
+- ATTRIBUTION.md
+
+Important restrictions:
+
+- Preserve required copyright and license notices.
 - Review third-party dependency licenses.
-- Preserve copyright notices.
-- Follow redistribution requirements.
-- Document modifications.
+- Review asset-specific licenses.
+- Do not reuse protected trademarks or logos without permission.
+- Record modifications to reused components.
 
-7. Security Review
+Source-code licensing does not automatically grant trademark rights.
 
-Inspect:
+## 7. Reuse Assessment
 
-- Authentication.
-- API security.
-- Secret management.
-- File operations.
+| Component | Initial assessment |
+|---|---|
+| Rust analysis libraries | Candidate for technical review |
+| Rust engine | Candidate for server-side adaptation |
+| CLI | Reference for workflow behavior |
+| Desktop egui interface | Not suitable as the Android UI |
+| WebAssembly viewer | Requires separate compatibility review |
+| Branding and logos | Do not reuse without permission |
+
+No component is approved for production reuse yet.
+
+## 8. Security Review
+
+A complete security audit remains pending.
+
+The following areas require source-level inspection:
+
+- AI agent execution.
 - External URL processing.
-- Code execution.
-- Worker isolation.
+- File system access.
+- Command execution.
+- MCP tool permissions.
+- Network access.
 - Dependency vulnerabilities.
+- Worker isolation.
 
-8. Android Compatibility
+IDRICI CRAFT must execute untrusted operations in isolated environments.
 
-Evaluate which components can:
+## 9. IDRICI CRAFT Integration Direction
 
-- Run directly on Android.
-- Communicate with Android through an API.
-- Be adapted for server-side execution.
-- Be replaced with native Android components.
+The planned independent architecture remains:
 
-9. Audit Results
+- Android client.
+- Backend API.
+- Task orchestrator.
+- AI integration layer.
+- Isolated execution workers.
+- Database and file storage.
 
-The following fields must be completed after actual source inspection:
+The upstream Rust engine may provide reusable technical components after compatibility, security, and license review.
 
-- Confirmed technologies.
-- Reusable components.
-- Required modifications.
-- Security findings.
-- License findings.
-- Integration recommendations.
+The IDRICI CRAFT interface and branding remain independently designed.
 
-10. Audit Status
+## 10. Remaining Audit Work
 
-Current status: NOT STARTED
+- Inspect the engine crate implementation.
+- Inspect AI agent integration.
+- Inspect MCP tool execution.
+- Inspect file and process operations.
+- Review dependency licenses.
+- Review security-sensitive code paths.
+- Test candidate components before reuse.
 
-No upstream component is approved for reuse until the technical and license reviews are completed.
+## 11. Audit Status
+
+Status: IN PROGRESS
+
+Initial repository structure and technology identification: COMPLETED.
+
+Detailed source-level security review: NOT STARTED.
+
+Component compatibility testing: NOT STARTED.
+
+Production reuse approval: NOT APPROVED.
+
+This report distinguishes verified repository observations from pending technical assessments.
 
 ---
 
 Project: IDRICI CRAFT
+Repository: Idrici2027/idricraftici
+Branch: main
